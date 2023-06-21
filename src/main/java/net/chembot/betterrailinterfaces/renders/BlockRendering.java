@@ -14,19 +14,20 @@ public class BlockRendering
     @SubscribeEvent
     public void onModelRegisterEvent(ModelRegistryEvent event)
     {
+        //didnt work with block
         //register(BRIBlocks.stock_detector, "stock_detector");
-        //should exist? maybe it doesnt exist and getItemFromBlock returns null
+        
+        //should exist
         registerItem(BRIBlocks.ITEMS.get(0), "stock_detector");
-
-        //meta loop (no meta)
-        //entity rendering registry render tile entities() (no tile entities)
     }
 
+    //didn't work
     public static void register(Block block, String model)
     {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(BetterRailInterfaces.modAddress() + model, "inventory"));
     }
 
+    //tried without using getItemFromBlock, didn't work either
     public static void registerItem(Item item, String model)
     {
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(BetterRailInterfaces.modAddress() + model, "inventory"));
