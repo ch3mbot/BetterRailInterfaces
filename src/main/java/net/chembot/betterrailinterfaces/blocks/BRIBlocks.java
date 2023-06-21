@@ -24,17 +24,6 @@ public class BRIBlocks
 
     public static Block register(String name, Block block)
     {
-        /*
-        block.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
-        block.setRegistryName(name);
-        BLOCKS.add(block);
-
-        Item blockItem = new ItemBlock(block);
-        blockItem.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
-        blockItem.setRegistryName(name);
-        ITEMS.add(blockItem);
-        */
-
         //block.getRegistryName() or BetterRailInterfaces.locate(name)) neither works for item
 
         block.setUnlocalizedName(name); //has mod name?
@@ -96,5 +85,4 @@ public class BRIBlocks
         }
         return items;
     }
-
 }
