@@ -36,11 +36,13 @@ public class BetterRailInterfaces
         logger = event.getModLog();
         logger.info("Better Rail Interfaces preInit");
 
-        BRIBlocks.Initialization();
-        //craft tweaker i guess?
-        //ForgeRegistries.BLOCKS.registerAll(BRIBlocks.GetBlockArray());
+        //initialize static block variables
+        BRIBlocks.Initialization();x
 
         CommonProxy.registerEvent(BRIRegistryEvent.class);
+
+        //neither functioned correctly
+        //ForgeRegistries.BLOCKS.registerAll(BRIBlocks.GetBlockArray()); 
         //MinecraftForge.EVENT_BUS.register(BRIRegistryEvent.class);
 
         proxy.preInit();
@@ -49,15 +51,11 @@ public class BetterRailInterfaces
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        // some example code
-        //logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
         logger.info("Better Rail Interfaces init");
 
-        //tile entity initialize?
-
+        //didnt work
         //ForgeRegistries.ITEMS.registerAll(BRIBlocks.GetItemArray());
-
-        //registerEvent entity events and event handler
+        
         proxy.init();
     }
 
