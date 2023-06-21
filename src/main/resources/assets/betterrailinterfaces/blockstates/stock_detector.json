@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "betterrailinterfaces:stock_detector_model"
+    }
+  }
+}
