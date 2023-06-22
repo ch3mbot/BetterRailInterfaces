@@ -1,73 +1,76 @@
 package net.chembot.betterrailinterfaces;
 
-import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
-import net.chembot.betterrailinterfaces.items.BRIItems;
-import net.chembot.betterrailinterfaces.registry.BRIRegistryEvent;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.apache.logging.log4j.Logger;
+import cam72cam.mod.ModCore;
+import cam72cam.mod.ModEvent;
+import net.minecraft.init.Blocks;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-@Mod(modid = BetterRailInterfaces.MODID, name = BetterRailInterfaces.NAME, version = BetterRailInterfaces.VERSION, dependencies = BetterRailInterfaces.DEPENDENCIES)
-public class BetterRailInterfaces
-{
-    @SidedProxy(modId = BetterRailInterfaces.MODID, clientSide = "net.chembot.betterrailinterfaces.client.ClientProxy", serverSide = "net.chembot.betterrailinterfaces.CommonProxy")
-    public static CommonProxy proxy;
+public class BetterRailInterfaces extends ModCore.Mod {
 
-    public static final String MODID = "betterrailinterfaces";
-    public static final String NAME = "Better Rail Interfaces";
-    public static final String VERSION = "0.0.1";
-    public static final String DEPENDENCIES = "required-after:universalmodcore"; //@1.12.2-forge-1.1.4-2b81e7" ;
+    public static final String MODID = "BetterRailInterfaces";
 
-    public static Logger logger;
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-
-        logger = event.getModLog();
-        logger.info("Better Rail Interfaces preInit");
-
-        //initialize static block variables
-        BRIBlocks.Initialization();x
-
-        CommonProxy.registerEvent(BRIRegistryEvent.class);
-
-        //neither functioned correctly
-        //ForgeRegistries.BLOCKS.registerAll(BRIBlocks.GetBlockArray()); 
-        //MinecraftForge.EVENT_BUS.register(BRIRegistryEvent.class);
-
-        proxy.preInit();
+    @Override
+    public String modID() {
+        return MODID;
     }
 
-    @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
-        logger.info("Better Rail Interfaces init");
-
-        //didnt work
-        //ForgeRegistries.ITEMS.registerAll(BRIBlocks.GetItemArray());
-        
-        proxy.init();
+    @Override
+    public void commonEvent(ModEvent event) {
+        switch (event) {
+            case CONSTRUCT:
+                //Register network packets, blocks, items, guis, and so on here
+                BRIBlocks.register();
+                BRIItems.register();
+                break;
+            case INITIALIZE:
+                //Do config stuff here
+                break;
+            case SETUP:
+                break;
+            case FINALIZE:
+                break;
+            case START:
+                break;
+            case RELOAD:
+                break;
+        }
     }
 
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        proxy.postInit();
+    @Override
+    public void clientEvent(ModEvent event) {
+        switch (event) {
+            case CONSTRUCT:
+                //Register keys as well as the rendering of blocks, items, and so on here
+                break;
+            case INITIALIZE:
+                break;
+            case SETUP:
+                break;
+            case FINALIZE:
+                break;
+            case START:
+                break;
+            case RELOAD:
+                break;
+        }
     }
 
-    public static ResourceLocation locate(String location)
-    {
-        return new ResourceLocation(MODID, location);
+    @Override
+    public void serverEvent(ModEvent event) {
+        switch (event) {
+            case CONSTRUCT:
+                break;
+            case INITIALIZE:
+                break;
+            case SETUP:
+                break;
+            case FINALIZE:
+                break;
+            case START:
+                break;
+            case RELOAD:
+                break;
+        }
     }
-    public static String modAddress() { return MODID + ":"; }
 }

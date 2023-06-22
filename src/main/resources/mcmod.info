@@ -2,16 +2,15 @@
 {
   "modid": "betterrailinterfaces",
   "name": "Better Rail Interfaces",
-  "description": "Adds some nicer interfaces to immersive railroading instead of the coloured squares.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "license" : "MIT License",
+  "description": "",
+  "version": "0.0.1",
+  "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
-  "authorList": ["chembot"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": [],
+  "credits": "",
   "logoFile": "",
-  "screenshots": [""],
+  "screenshots": [],
   "dependencies": []
 }
 ]
