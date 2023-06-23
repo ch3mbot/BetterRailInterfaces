@@ -3,6 +3,8 @@ package net.chembot.betterrailinterfaces.blocks;
 import net.chembot.betterrailinterfaces.BetterRailInterfaces;
 import net.chembot.betterrailinterfaces.blocks.stock_detector;
 
+import net.chembot.betterrailinterfaces.registry.BRIRegistryEvent;
+import net.chembot.betterrailinterfaces.renders.BlockRendering;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -24,6 +26,17 @@ public class BRIBlocks
 
     public static Block register(String name, Block block)
     {
+        /*
+        block.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
+        block.setRegistryName(name);
+        BLOCKS.add(block);
+
+        Item blockItem = new ItemBlock(block);
+        blockItem.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
+        blockItem.setRegistryName(name);
+        ITEMS.add(blockItem);
+        */
+
         //block.getRegistryName() or BetterRailInterfaces.locate(name)) neither works for item
 
         block.setUnlocalizedName(name); //has mod name?
@@ -35,6 +48,9 @@ public class BRIBlocks
         blockItem.setUnlocalizedName(name); //has mod name?
         blockItem.setRegistryName(block.getRegistryName());
         ITEMS.add(blockItem);
+
+        //this should really be called from the register model event, but there doesn't seem to be any way to find out how to subscribe to it
+        BlockRendering.registerItem(blockItem, "stock_detector");
 
         return block;
     }
@@ -85,4 +101,5 @@ public class BRIBlocks
         }
         return items;
     }
+
 }

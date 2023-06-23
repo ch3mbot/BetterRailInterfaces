@@ -1,7 +1,10 @@
 {
   "variants": {
-    "normal": {
-      "model": "betterrailinterfaces:stock_detector_model"
+    "powered=false": {
+      "model": "betterrailinterfaces:stock_detector_model_off"
+    },
+    "powered=true": {
+      "model": "betterrailinterfaces:stock_detector_model_on"
     }
   }
 }
