@@ -51,8 +51,8 @@ public class stock_detector extends Block implements ITileEntityProvider
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
-        BetterRailInterfaces.logger.warn("broke block and is remote: " + worldIn.isRemote);
-        BetterRailInterfaces.logger.warn("broke block that had powered: " + state.getValue(POWERED));
+        //BetterRailInterfaces.logger.warn("broke block and is remote: " + worldIn.isRemote);
+        //BetterRailInterfaces.logger.warn("broke block that had powered: " + state.getValue(POWERED));
 
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
@@ -62,6 +62,8 @@ public class stock_detector extends Block implements ITileEntityProvider
         {
             super.breakBlock(worldIn, pos, state);
         }
+
+
 
     }
 
@@ -101,7 +103,7 @@ public class stock_detector extends Block implements ITileEntityProvider
         return state.getValue(POWERED)? 1 : 0;
     }
 
-
+/*
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos)
     {
@@ -119,6 +121,7 @@ public class stock_detector extends Block implements ITileEntityProvider
     public boolean isFullCube(IBlockState state) {
         return true;
     }
+*/
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
@@ -127,7 +130,9 @@ public class stock_detector extends Block implements ITileEntityProvider
 
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        BetterRailInterfaces.logger.warn("weak power from state: " + state.getValue(POWERED) + ", weak power from entity: " + ((stock_detector_tile_entity)world.getTileEntity(pos)).detected);
+        //BetterRailInterfaces.logger.warn("weak power from state: " + state.getValue(POWERED) + ", weak power from entity: " + ((stock_detector_tile_entity)world.getTileEntity(pos)).detected
+        //+ ", is remote: " + world.getTileEntity(pos).getWorld().isRemote
+        //);
         return state.getValue(POWERED)? 15 : 0;
         //return ((stock_detector_tile_entity)world.getTileEntity(pos)).detected ? 15 : 0;
     }
