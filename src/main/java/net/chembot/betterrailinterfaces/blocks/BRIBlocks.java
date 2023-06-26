@@ -22,23 +22,16 @@ public class BRIBlocks
     public static Block stock_detector;
     public static Block fluid_exchanger;
     public static final List<Block> BLOCKS = new ArrayList<Block>();
-
     public static final List<Item> ITEMS = new ArrayList<Item>();
+
+    public static void Initialization()
+    {
+        stock_detector = register("stock_detector", new stock_detector());
+        fluid_exchanger = register("fluid_exchanger", new fluid_exchanger());
+    }
 
     public static Block register(String name, Block block)
     {
-        /*
-        block.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
-        block.setRegistryName(name);
-        BLOCKS.add(block);
-
-        Item blockItem = new ItemBlock(block);
-        blockItem.setUnlocalizedName("betterrailinterfaces." + name); //has mod name?
-        blockItem.setRegistryName(name);
-        ITEMS.add(blockItem);
-        */
-
-        //block.getRegistryName() or BetterRailInterfaces.locate(name)) neither works for item
 
         block.setUnlocalizedName(name); //has mod name?
         block.setRegistryName(BetterRailInterfaces.locate(name));
@@ -51,15 +44,10 @@ public class BRIBlocks
         ITEMS.add(blockItem);
 
         //this should really be called from the register model event, but there doesn't seem to be any way to find out how to subscribe to it
-        BlockRendering.registerItem(blockItem, name);
+
+        BlockRendering.AddEntry(blockItem, name);
 
         return block;
-    }
-
-    public static void Initialization()
-    {
-        stock_detector = register("stock_detector", new stock_detector());
-        fluid_exchanger = register("fluid_exchanger", new fluid_exchanger());
     }
 
     public static void RegisterBlocks(IForgeRegistry<Block> blockRegistry)
@@ -83,25 +71,4 @@ public class BRIBlocks
         }
         itemRegistry.registerAll(items);
     }
-
-    public static Block[] GetBlockArray()
-    {
-        Block[] blocks = new Block[BLOCKS.size()];
-        for (int i = 0; i < BLOCKS.size(); i++)
-        {
-            blocks[i] = BLOCKS.get(i);
-        }
-        return blocks;
-    }
-
-    public static Item[] GetItemArray()
-    {
-        Item[] items = new Item[ITEMS.size()];
-        for (int i = 0; i < ITEMS.size(); i++)
-        {
-            items[i] = ITEMS.get(i);
-        }
-        return items;
-    }
-
 }

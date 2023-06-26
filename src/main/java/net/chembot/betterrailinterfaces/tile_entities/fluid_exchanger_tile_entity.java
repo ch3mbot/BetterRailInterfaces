@@ -5,6 +5,7 @@ import cam72cam.mod.entity.CustomEntity;
 import cam72cam.mod.entity.ModdedEntity;
 import net.chembot.betterrailinterfaces.BetterRailInterfaces;
 import net.chembot.betterrailinterfaces.StockHelpers;
+import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
 import net.chembot.betterrailinterfaces.blocks.fluid_exchanger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -90,12 +91,17 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
     {
         //BetterRailInterfaces.logger.info(getWorld().getBlockState(getPos()));
 
+        if(getWorld().getBlockState(getPos()).getBlock() != BRIBlocks.fluid_exchanger)
+        {
+            getWorld().removeTileEntity(getPos());
+        }
+
         ticksAlive++;
 
         if(ticksAlive % 20 == 0)
         {
             pulling = this.getWorld().getBlockState(this.getPos()).getValue(fluid_exchanger.PULLING);
-            BetterRailInterfaces.logger.info("pulling: " + pulling);
+            //BetterRailInterfaces.logger.info("pulling: " + pulling);
 
             List<Entity> entities = StockHelpers.getNearbyStock(this.getWorld(), this.getPos(), 36);
             if(entities.size() == 0)
@@ -109,7 +115,7 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
             //StockHelpers.LogClassStructure(((ModdedEntity)entities.get(0)).getSelf());
 
             if(fluidTank.getFluid() != null)
-                BetterRailInterfaces.logger.info("fluid tank stack: " + fluidTank.getFluid().amount);
+                //BetterRailInterfaces.logger.info("fluid tank stack: " + fluidTank.getFluid().amount);
 
 
             if(!(((ModdedEntity)entities.get(0)).getSelf() instanceof FreightTank))
@@ -126,10 +132,10 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
 
             if(pulling && actualFluidStack != null && actualFluidStack.getFluid() != null)
             {
-                BetterRailInterfaces.logger.warn("pullin and full and has fluid");
+                //BetterRailInterfaces.logger.warn("pullin and full and has fluid");
                 if(fluidTank.getFluid() == null || actualFluidStack.getFluid() == fluidTank.getFluid().getFluid())
                 {
-                    BetterRailInterfaces.logger.warn("transferred in theory");
+                    //BetterRailInterfaces.logger.warn("transferred in theory");
                     int space = fluidTank.getCapacity() - fluidTank.getFluidAmount();
                     FluidStack taken = actualStockTank.drain(space, true);
                     fluidTank.fill(taken, true);
@@ -137,10 +143,10 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
             }
             else if (!pulling && fluidTank.getFluid() != null && fluidTank.getFluid().getFluid() != null)
             {
-                BetterRailInterfaces.logger.warn("pushing and full and has fluid");
-                if(actualStockTank.getFluid() == null || actualStockTank.getFluid() == fluidTank.getFluid())
+                //BetterRailInterfaces.logger.warn("pushing and full and has fluid");
+                if(actualStockTank.getFluid() == null || actualFluidStack.getFluid() == fluidTank.getFluid().getFluid())
                 {
-                    BetterRailInterfaces.logger.warn("transferred in theory");
+                    //BetterRailInterfaces.logger.warn("transferred in theory");
                     int space = actualStockTank.getCapacity() - actualStockTank.getFluidAmount();
                     FluidStack given = fluidTank.drain(space, true);
                     actualStockTank.fill(given, true);

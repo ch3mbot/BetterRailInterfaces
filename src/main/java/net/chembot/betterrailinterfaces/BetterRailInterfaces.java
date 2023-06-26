@@ -3,6 +3,8 @@ package net.chembot.betterrailinterfaces;
 import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
 import net.chembot.betterrailinterfaces.items.BRIItems;
 import net.chembot.betterrailinterfaces.registry.BRIRegistryEvent;
+import net.chembot.betterrailinterfaces.renders.BlockRendering;
+import net.chembot.betterrailinterfaces.renders.ItemRendering;
 import net.chembot.betterrailinterfaces.tile_entities.BRITileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -37,9 +39,14 @@ public class BetterRailInterfaces
         logger = event.getModLog();
         logger.info("Better Rail Interfaces preInit");
 
+        BlockRendering.Initialization();
+        ItemRendering.Initialization();
+
         BRIBlocks.Initialization();
         //craft tweaker i guess?
         //ForgeRegistries.BLOCKS.registerAll(BRIBlocks.GetBlockArray());
+
+        BRIItems.Initialization();
 
         CommonProxy.registerEvent(BRIRegistryEvent.class);
         //MinecraftForge.EVENT_BUS.register(BRIRegistryEvent.class);

@@ -9,24 +9,47 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlockRendering
 {
-    @SubscribeEvent
-    public void registerModels(ModelRegistryEvent event)
+    public static List<Item> items;
+    public static List<String> names;
+
+    public static void Initialization()
     {
+        items = new ArrayList<Item>();
+        names = new ArrayList<String>();
+    }
+
+    public static void AddEntry(Item item, String name)
+    {
+        items.add(item);
+        names.add(name);
+    }
+
+    public static void registerModels(ModelRegistryEvent event)
+    {
+        BetterRailInterfaces.logger.info("Registering item models");
+
         //register(BRIBlocks.stock_detector, "stock_detector");
         //should exist? maybe it doesnt exist and getItemFromBlock returns null
-        registerItem(BRIBlocks.ITEMS.get(0), "stock_detector");
-        registerItem(BRIBlocks.ITEMS.get(1), "fluid_exchanger");
-        BetterRailInterfaces.logger.info("Registered stock_detector item model");
+        for (int i = 0; i < items.size(); i++)
+        {
+            registerItem(items.get(i), names.get(i));
+            BetterRailInterfaces.logger.info("Registered " + names.get(i) + " item model");
+        }
+        //registerItem(BRIBlocks.ITEMS.get(0), "stock_detector");
+        //registerItem(BRIBlocks.ITEMS.get(1), "fluid_exchanger");
 
         //meta loop (no meta)
         //entity rendering registry render tile entities() (no tile entities)
     }
 
-    public static void register(Block block, String model)
+    public static void registerBlock(Block block, String model)
     {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(BetterRailInterfaces.modAddress() + model, "inventory"));
+        //ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(BetterRailInterfaces.modAddress() + model, "inventory"));
     }
 
     public static void registerItem(Item item, String model)

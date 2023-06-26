@@ -1,5 +1,12 @@
 package net.chembot.betterrailinterfaces.blocks;
 
+import cam72cam.immersiverailroading.items.BaseItemRollingStock;
+import cam72cam.immersiverailroading.registry.EntityRollingStockDefinition;
+import cam72cam.immersiverailroading.render.item.StockItemModel;
+import cam72cam.mod.entity.Player;
+import cam72cam.mod.item.CustomItem;
+import net.chembot.betterrailinterfaces.BetterRailInterfaces;
+import net.chembot.betterrailinterfaces.StockHelpers;
 import net.chembot.betterrailinterfaces.tile_entities.fluid_exchanger_tile_entity;
 import net.chembot.betterrailinterfaces.tile_entities.stock_detector_tile_entity;
 import net.minecraft.block.Block;
@@ -10,8 +17,14 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemAir;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -71,14 +84,8 @@ public class fluid_exchanger extends Block implements ITileEntityProvider
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
     {
         super.breakBlock(worldIn, pos, state);
-        /*
-        TileEntity tileentity = worldIn.getTileEntity(pos);
-        worldIn.removeTileEntity(pos);
 
-        if (tileentity instanceof stock_detector_tile_entity)
-        {
-            super.breakBlock(worldIn, pos, state);
-        }*/
+        worldIn.removeTileEntity(pos);
     }
 
     @Override
@@ -100,5 +107,23 @@ public class fluid_exchanger extends Block implements ITileEntityProvider
                 worldIn.setBlockState(pos, BRIBlocks.fluid_exchanger.getDefaultState().withProperty(PULLING, false), 3);
             }
         }
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float a, float b, float c)
+    {
+        if(hand == EnumHand.OFF_HAND)
+            return false;
+
+        ItemStack stack = player.inventory.getCurrentItem();
+        if(stack.getItem() == Items.AIR)
+        {
+            return false;
+        }
+
+        StockHelpers.LogClassStructure(stack.getItem());
+        BetterRailInterfaces.logger.warn(StockHelpers.GetClass(StockHelpers.StackToBadStack(stack)));
+
+        return false;
     }
 }
