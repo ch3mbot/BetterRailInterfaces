@@ -8,5 +8,6 @@ public class BRITileEntities
     public static void init()
     {
         GameRegistry.registerTileEntity(stock_detector_tile_entity.class, BetterRailInterfaces.modAddress() + "stock_detector_tile_entity");
+        GameRegistry.registerTileEntity(fluid_exchanger_tile_entity.class, BetterRailInterfaces.modAddress() + "fluid_exchanger_tile_entity");
     }
 }

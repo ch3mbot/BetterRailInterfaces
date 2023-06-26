@@ -54,6 +54,9 @@ public class stock_detector extends Block implements ITileEntityProvider
         //BetterRailInterfaces.logger.warn("broke block and is remote: " + worldIn.isRemote);
         //BetterRailInterfaces.logger.warn("broke block that had powered: " + state.getValue(POWERED));
 
+        super.breakBlock(worldIn, pos, state);
+
+        /*
         TileEntity tileentity = worldIn.getTileEntity(pos);
 
         //worldIn.removeTileEntity(pos);
@@ -62,7 +65,7 @@ public class stock_detector extends Block implements ITileEntityProvider
         {
             super.breakBlock(worldIn, pos, state);
         }
-
+*/
 
 
     }

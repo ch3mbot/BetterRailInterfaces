@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "pulling=false": {
+      "model": "betterrailinterfaces:fluid_exchanger_model_pushing"
+    },
+    "pulling=true": {
+      "model": "betterrailinterfaces:fluid_exchanger_model_pulling"
+    }
+  }
+}

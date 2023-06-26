@@ -20,6 +20,7 @@ import static net.chembot.betterrailinterfaces.BetterRailInterfaces.logger;
 public class BRIBlocks
 {
     public static Block stock_detector;
+    public static Block fluid_exchanger;
     public static final List<Block> BLOCKS = new ArrayList<Block>();
 
     public static final List<Item> ITEMS = new ArrayList<Item>();
@@ -50,7 +51,7 @@ public class BRIBlocks
         ITEMS.add(blockItem);
 
         //this should really be called from the register model event, but there doesn't seem to be any way to find out how to subscribe to it
-        BlockRendering.registerItem(blockItem, "stock_detector");
+        BlockRendering.registerItem(blockItem, name);
 
         return block;
     }
@@ -58,6 +59,7 @@ public class BRIBlocks
     public static void Initialization()
     {
         stock_detector = register("stock_detector", new stock_detector());
+        fluid_exchanger = register("fluid_exchanger", new fluid_exchanger());
     }
 
     public static void RegisterBlocks(IForgeRegistry<Block> blockRegistry)

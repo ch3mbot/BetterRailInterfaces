@@ -17,6 +17,7 @@ public class BlockRendering
         //register(BRIBlocks.stock_detector, "stock_detector");
         //should exist? maybe it doesnt exist and getItemFromBlock returns null
         registerItem(BRIBlocks.ITEMS.get(0), "stock_detector");
+        registerItem(BRIBlocks.ITEMS.get(1), "fluid_exchanger");
         BetterRailInterfaces.logger.info("Registered stock_detector item model");
 
         //meta loop (no meta)

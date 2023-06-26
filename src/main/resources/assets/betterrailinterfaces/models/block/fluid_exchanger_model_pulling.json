@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "betterrailinterfaces:blocks/stock_detector_topbottom",
+    "front": "betterrailinterfaces:blocks/stock_detector_topbottom",
+    "side": "betterrailinterfaces:blocks/stock_detector_topbottom"
+  }
+}
