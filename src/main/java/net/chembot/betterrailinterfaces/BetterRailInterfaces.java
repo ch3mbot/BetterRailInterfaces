@@ -2,6 +2,7 @@ package net.chembot.betterrailinterfaces;
 
 import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
 import net.chembot.betterrailinterfaces.items.BRIItems;
+import net.chembot.betterrailinterfaces.networking.BRINetworkingManager;
 import net.chembot.betterrailinterfaces.registry.BRIRegistryEvent;
 import net.chembot.betterrailinterfaces.renders.BlockRendering;
 import net.chembot.betterrailinterfaces.renders.ItemRendering;
@@ -25,6 +26,9 @@ public class BetterRailInterfaces
     @SidedProxy(modId = BetterRailInterfaces.MODID, clientSide = "net.chembot.betterrailinterfaces.client.ClientProxy", serverSide = "net.chembot.betterrailinterfaces.CommonProxy")
     public static CommonProxy proxy;
 
+    @Mod.Instance
+    public static BetterRailInterfaces instance;
+
     public static final String MODID = "betterrailinterfaces";
     public static final String NAME = "Better Rail Interfaces";
     public static final String VERSION = "0.0.1";
@@ -41,6 +45,8 @@ public class BetterRailInterfaces
 
         BlockRendering.Initialization();
         ItemRendering.Initialization();
+
+        BRINetworkingManager.preInit();
 
         BRIBlocks.Initialization();
         //craft tweaker i guess?
