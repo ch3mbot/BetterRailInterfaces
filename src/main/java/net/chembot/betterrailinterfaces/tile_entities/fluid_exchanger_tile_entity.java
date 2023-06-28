@@ -4,6 +4,7 @@ import cam72cam.immersiverailroading.entity.FreightTank;
 import cam72cam.mod.entity.CustomEntity;
 import cam72cam.mod.entity.ModdedEntity;
 import net.chembot.betterrailinterfaces.BetterRailInterfaces;
+import net.chembot.betterrailinterfaces.IEntityFilter;
 import net.chembot.betterrailinterfaces.StockHelpers;
 import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
 import net.chembot.betterrailinterfaces.blocks.fluid_exchanger;
@@ -28,12 +29,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class fluid_exchanger_tile_entity  extends TileEntity implements ITickable, IFluidHandler, ICapabilityProvider
+public class fluid_exchanger_tile_entity  extends TileEntity implements ITickable, IFluidHandler, ICapabilityProvider, IEntityFilter
 {
     public static final int CAPACITY = 16000;
     public boolean pulling;
     public FluidTank fluidTank;
     public int ticksAlive;
+
+    private Class filter;
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -107,22 +110,25 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
             if(entities.size() == 0)
                 return;
 
-            //StockHelpers.LogClassStructure(entities.get(0));
+            ModdedEntity modEnt;
+            CustomEntity custEnt = null;
 
-            if(!(entities.get(0) instanceof ModdedEntity))
+            int foundIndex = -1;
+            for(int i = 0; i < entities.size(); i++)
+            {
+                modEnt = (ModdedEntity)entities.get(i);
+                custEnt = modEnt.getSelf();
+
+                if(custEnt instanceof FreightTank)
+                {
+                    if(filter != null && this.getFilterClass().isInstance(custEnt))
+                    {
+                        foundIndex = i;
+                    }
+                }
+            }
+            if(foundIndex == -1)
                 return;
-
-            //StockHelpers.LogClassStructure(((ModdedEntity)entities.get(0)).getSelf());
-
-            if(fluidTank.getFluid() != null)
-                //BetterRailInterfaces.logger.info("fluid tank stack: " + fluidTank.getFluid().amount);
-
-
-            if(!(((ModdedEntity)entities.get(0)).getSelf() instanceof FreightTank))
-                return;
-
-            ModdedEntity modEnt = (ModdedEntity)entities.get(0);
-            CustomEntity custEnt = modEnt.getSelf();
 
             cam72cam.mod.fluid.FluidTank modcoreStockTank =  ((FreightTank)custEnt).theTank;
             FluidTank actualStockTank = modcoreStockTank.internal;
@@ -176,5 +182,23 @@ public class fluid_exchanger_tile_entity  extends TileEntity implements ITickabl
     @Override
     public FluidStack drain(int i, boolean b) {
         return fluidTank.drain(i, b);
+    }
+
+    @Override
+    public Class getFilterClass()
+    {
+        return this.filter;
+    }
+
+    @Override
+    public boolean isFilter()
+    {
+        return filter != null;
+    }
+
+    @Override
+    public void setFilterClass(Class clazz)
+    {
+        this.filter = clazz;
     }
 }

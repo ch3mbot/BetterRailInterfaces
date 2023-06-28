@@ -6,7 +6,9 @@ import cam72cam.immersiverailroading.render.item.StockItemModel;
 import cam72cam.mod.entity.Player;
 import cam72cam.mod.item.CustomItem;
 import net.chembot.betterrailinterfaces.BetterRailInterfaces;
+import net.chembot.betterrailinterfaces.IEntityFilter;
 import net.chembot.betterrailinterfaces.StockHelpers;
+import net.chembot.betterrailinterfaces.items.rail_interface_configurator;
 import net.chembot.betterrailinterfaces.tile_entities.fluid_exchanger_tile_entity;
 import net.chembot.betterrailinterfaces.tile_entities.stock_detector_tile_entity;
 import net.minecraft.block.Block;
@@ -122,7 +124,17 @@ public class fluid_exchanger extends Block implements ITileEntityProvider
         }
 
         StockHelpers.LogClassStructure(stack.getItem());
-        BetterRailInterfaces.logger.warn(StockHelpers.GetClass(StockHelpers.StackToBadStack(stack)));
+        //BetterRailInterfaces.logger.warn(StockHelpers.GetClass(StockHelpers.StackToBadStack(stack)));
+        if(stack.getItem() instanceof rail_interface_configurator)
+        {
+            BetterRailInterfaces.logger.warn("right clicked with configurator");
+            TileEntity ent = worldIn.getTileEntity(pos);
+            if(ent instanceof IEntityFilter)
+            {
+                IEntityFilter filter = (IEntityFilter) ent;
+                filter.setFilterClass(((rail_interface_configurator)stack.getItem()).heldClass);
+            }
+        }
 
         return false;
     }

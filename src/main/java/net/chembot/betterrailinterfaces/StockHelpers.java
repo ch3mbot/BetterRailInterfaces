@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.reflect.Field;
 
@@ -92,6 +93,44 @@ public class StockHelpers
             BetterRailInterfaces.logger.error(e);
             return null;
         }
+    }
+
+    public static List<String> DecomposeClass(Object obj)
+    {
+        return DecomposeClass(obj.getClass());
+    }
+
+    public static List<String> DecomposeClass(Class clazz)
+    {
+        List<String> strList = new ArrayList<String>();
+        String first = clazz.getSimpleName();
+        first += ListInterfaces(clazz);
+        strList.add(first);
+
+        Class superClass = clazz.getSuperclass();
+        while(superClass != null)
+        {
+            String nxt = superClass.getSimpleName();
+            nxt += ListInterfaces(superClass);
+            strList.add(nxt);
+            superClass = superClass.getSuperclass();
+        }
+
+        return strList;
+    }
+
+    public static String ListInterfaces(Class clazz)
+    {
+        String str = " implements ";
+        if (clazz.getInterfaces().length == 0)
+        {
+            return "";
+        }
+        for (Class c : clazz.getInterfaces())
+        {
+            str += c.getSimpleName() + ", ";
+        }
+        return (str.substring(0, str.length() - 2));
     }
 
 }

@@ -1,23 +1,30 @@
 package net.chembot.betterrailinterfaces.items;
 
 import net.chembot.betterrailinterfaces.BetterRailInterfaces;
+import net.chembot.betterrailinterfaces.blocks.BRIBlocks;
 import net.chembot.betterrailinterfaces.gui.BRIGUIHandler;
 import net.chembot.betterrailinterfaces.gui.rail_interface_configurator_gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerWorkbench;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
 
 public class rail_interface_configurator extends Item
 {
-    private Class heldClass;
+    public Class heldClass;
     private int levelsUp;
     private boolean modEntity;
     private Class modEntLow;
@@ -39,20 +46,25 @@ public class rail_interface_configurator extends Item
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
         BetterRailInterfaces.logger.info("right clicked with rail interface configurator");
 
-        if(player.isSneaking())
+        if(!player.isSneaking())
         {
-            if(!worldIn.isRemote)
-            {
-                BetterRailInterfaces.logger.info("attempting cast");
-                RayTraceResult result = rayTrace(worldIn, player, true);
-
-                if (result != null && result.typeOfHit == RayTraceResult.Type.ENTITY)
-                {
-                    Entity targetEntity = result.entityHit;
-                    this.heldClass = targetEntity.getClass();
-                    BetterRailInterfaces.logger.info("class now held: " + heldClass.getName());
-                }
-            }
+//            if(!worldIn.isRemote) {
+//                BetterRailInterfaces.logger.info("attempting cast");
+//                RayTraceResult result = Minecraft.getMinecraft().objectMouseOver;
+//
+//                BetterRailInterfaces.logger.info("result null: " + (result == null));
+//                if (result != null)
+//                {
+//                    BetterRailInterfaces.logger.info("result tye " + result.typeOfHit);
+//                }
+//
+//                if (result != null && result.typeOfHit == RayTraceResult.Type.ENTITY)
+//                {
+//                    Entity targetEntity = result.entityHit;
+//                    this.heldClass = targetEntity.getClass();
+//                    BetterRailInterfaces.logger.info("class now held: " + heldClass.getName());
+//                }
+//            }
         }
         else
         {
